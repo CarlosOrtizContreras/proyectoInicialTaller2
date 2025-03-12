@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Cliente</title>
+    <link rel="stylesheet" href="src\main\resources\static\style\reset.css">
+    <link rel="stylesheet" href="src\main\resources\static\style\Style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+
+
+<body>
+
+    <div style="display: flex; justify-content: center ; margin-top: 110px;">
+        <h1>Ingrese Los Datos del Cliente</h1>
+    </div>
+    <form style="margin: 200px; margin-bottom: 50px;" action="/cliente/realizarActualizacion" method="post">
+
+          <div class="input-group">
+            <span class="input-group-text">ID</span>
+            <input type="text" readonly name="id" aria-label="Id" class="form-control" required th:value="${Cliente.id}">
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-text">Nombre</span>
+            <input type="text" aria-label="Nombre" name="nombre" class="form-control" required
+                th:value="${Cliente.nombre}">
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-text">Primer Apellido</span>
+            <input type="text" name="primerapellido" aria-label="Primer Apellido" class="form-control" required
+                th:value="${Cliente.primerapellido}">
+        </div>
+        <br>
+        <div class=" input-group">
+            <span class="input-group-text">Segundo Apellido</span>
+            <input type="text" name="segundoapellido" aria-label="Segundo Apellido" class="form-control" required
+                th:value="${Cliente.segundoapellido}">
+        </div>
+        <br>
+        <div class=" input-group">
+            <span class="input-group-text">Email</span>
+            <input type="email" name="email" aria-label="Email" class="form-control" required th:value="${Cliente.email}">
+        </div>
+        <br>
+        <div>
+            <span class=" input-group-text">Selecciona una Fecha</span>
+            <input type="date" name="fecha" aria-label="Selecciona una Fecha" class="form-control" required th:value="${Cliente.fecha}">
+
+        </div>
+        
+
+        <br><br>
+        <div style=" display: flex; justify-content: center ;"> <button type="submit"
+                class="btn btn-success">Actualizar</button>
+        </div>
+    </form>
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
