@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actualizar Cliente</title>
+    <title>Actualizar Producto</title>
     <link rel="stylesheet" href="src\main\resources\static\style\reset.css">
     <link rel="stylesheet" href="src\main\resources\static\style\Style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -15,41 +15,37 @@
 <body>
 
     <div style="display: flex; justify-content: center ; margin-top: 110px;">
-        <h1>Ingrese Los Datos del Cliente</h1>
+        <h1>Ingrese Los Datos del Producto</h1>
     </div>
-    <form style="margin: 200px; margin-bottom: 50px;" action="/cliente/realizarActualizacion" method="post">
+    <form style="margin: 200px; margin-bottom: 50px;" action="/producto/realizarActualizacion" method="post">
 
           <div class="input-group">
             <span class="input-group-text">ID</span>
-            <input type="number" readonly name="id" aria-label="Id" class="form-control" required th:value="${Cliente.id}">
+            <input type="number" readonly name="id" aria-label="Id" class="form-control" required th:value="${producto.id}">
         </div>
         <br>
         <div class="input-group">
             <span class="input-group-text">Nombre</span>
             <input type="text" aria-label="Nombre" name="nombre" class="form-control" required
-                th:value="${Cliente.nombre}">
+                th:value="${producto.nombre}">
         </div>
         <br>
         <div class="input-group">
-            <span class="input-group-text">Primer Apellido</span>
-            <input type="text" name="primerapellido" aria-label="Primer Apellido" class="form-control" required
-                th:value="${Cliente.primerapellido}">
+            <span class="input-group-text">Stock</span>
+            <input type="number" name="stock" aria-label="Stock" class="form-control" required
+                th:value="${producto.stock}">
         </div>
         <br>
         <div class=" input-group">
-            <span class="input-group-text">Segundo Apellido</span>
-            <input type="text" name="segundoapellido" aria-label="Segundo Apellido" class="form-control" required
-                th:value="${Cliente.segundoapellido}">
+            <span class="input-group-text">Precio</span>
+            <input type="text" name="precio" aria-label="Precio" class="form-control" required
+                th:value="${producto.precio}">
         </div>
         <br>
-        <div class=" input-group">
-            <span class="input-group-text">Email</span>
-            <input type="email" name="email" aria-label="Email" class="form-control" required th:value="${Cliente.email}">
-        </div>
-        <br>
+        
         <div>
             <span class=" input-group-text">Selecciona una Fecha</span>
-            <input type="date" name="fecha" aria-label="Selecciona una Fecha" class="form-control" required th:value="${Cliente.fecha}">
+            <input type="date" name="fecha" aria-label="Selecciona una Fecha" class="form-control" required th:value="${producto.fecha}">
 
         </div>
         

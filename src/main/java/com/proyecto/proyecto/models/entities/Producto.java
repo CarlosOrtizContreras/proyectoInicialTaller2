@@ -37,6 +37,14 @@ public class Producto implements Serializable {
         this.precio = precio;
         this.fecha = fecha;
     }
+    
+    public Producto(String nombre, int stock, int precio, LocalDate fecha) {
+       
+        this.nombre = nombre;
+        this.stock = stock;
+        this.precio = precio;
+        this.fecha = fecha;
+    }
     public int getId() {
         return id;
     }
