@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.proyecto.proyecto.models.dao.ProductoDao;
-import com.proyecto.proyecto.models.entities.Cliente;
 import com.proyecto.proyecto.models.entities.Producto;
 
 
@@ -34,14 +33,14 @@ public class ControllerProducto {
             model.addAttribute("Titulo", "Lista de Productos");
             model.addAttribute("producto", productoDao.listar());
 
-            return "ListarProducto";
+            return "/templatesProducto/ListarProducto";
         }
     }
     
 
        @GetMapping("/eliminar")
     public String eliminar() {
-        return "EliminarProducto";
+        return "/templatesProducto/EliminarProducto";
     }
 
     @PostMapping("/realizarEliminacion")
@@ -60,7 +59,7 @@ public class ControllerProducto {
 
     public String ingresar(Model model) {
 
-        return "IngresarProducto";
+        return "/templatesProducto/IngresarProducto";
     }
 
     @PostMapping("/guardar")
@@ -81,7 +80,7 @@ public class ControllerProducto {
     
     @GetMapping("/buscar")
     public String buscar(Model model) {
-        return "BuscarProducto";
+        return "/templatesProducto/BuscarProducto";
     }
 
     @PostMapping("/realizarBusqueda")
@@ -99,7 +98,7 @@ public class ControllerProducto {
             model.addAttribute("Titulo", "Lista de Productos");
             model.addAttribute("producto", producto);
 
-            return "ListarProducto";
+            return "/templatesProducto/ListarProducto";
         } else {
             return "redirect:/cliente/mensaje?mensaje=" + "EL PRODUCTO NO SE ENCUENTRA REGISTRADO";
         }
@@ -109,14 +108,14 @@ public class ControllerProducto {
     
     @GetMapping("/actualizar")
     public String actualizar() {
-        return "ActualizarProducto";
+        return "/templatesProducto/ActualizarProducto";
     }
 
     @PostMapping("/realizarVerificacion")
     public String realizarVerificacion(@RequestParam int id, Model model) {
         if (productoDao.encontrarProducto(id)) {
             model.addAttribute("producto", productoDao.obtenerProducto(id));
-            return "ActualizarProductoDatos";
+            return "/templatesProducto/ActualizarProductoDatos";
         } else {
             return "redirect:/cliente/mensaje?mensaje=" + "EL PRODUCTO NO SE ENCUENTRA REGISTRADO";
         }

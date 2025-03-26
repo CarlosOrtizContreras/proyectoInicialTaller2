@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 
 @Controller
-@RequestMapping("/cliente")
+@RequestMapping({"/cliente","/"})
 public class ControllerCliente {
 
     @Autowired
@@ -34,7 +34,7 @@ public class ControllerCliente {
             model.addAttribute("Titulo", "Lista de Clientes");
             model.addAttribute("cliente", clienteDao.listarClientes());
 
-            return "ListarCliente";
+            return "/templatesCliente/ListarCliente";
         }
 
     }
@@ -43,7 +43,7 @@ public class ControllerCliente {
 
     public String ingresar(Model model) {
 
-        return "IngresarCliente";
+        return "/templatesCliente/IngresarCliente";
     }
 
     @PostMapping("/guardar")
@@ -66,8 +66,8 @@ public class ControllerCliente {
     }
 
     @GetMapping("/buscar")
-    public String buscar(Model model) {
-        return "BuscarCliente";
+    public String buscar() {
+        return "/templatesCliente/BuscarCliente";
     }
 
     @PostMapping("/realizarBusqueda")
@@ -85,22 +85,34 @@ public class ControllerCliente {
             model.addAttribute("Titulo", "Lista de Clientes");
             model.addAttribute("cliente", cliente);
 
-            return "ListarCliente";
+            return "/templatesCliente/ListarCliente";
         } else {
             return "redirect:/cliente/mensaje?mensaje=" + "EL CLIENTE NO SE ENCUENTRA REGISTRADO";
         }
 
     }
 
-    @GetMapping("/menu")
-    public String menu() {
+    @GetMapping("/menuCliente")
+    public String menuCliente() {
 
-        return "Menu";
+        return "MenuCliente";
     }
+
+    @GetMapping("/menuProducto")
+    public String menuProducto() {
+
+        return "MenuProducto";
+    }
+
+    @GetMapping("/")
+    public String inicio() {
+        return "Inicio";
+    }
+    
 
     @GetMapping("/eliminar")
     public String eliminar() {
-        return "EliminarCliente";
+        return "/templatesCliente/EliminarCliente";
     }
 
     @PostMapping("/realizarEliminacion")
@@ -123,14 +135,14 @@ public class ControllerCliente {
 
     @GetMapping("/actualizar")
     public String actualizar() {
-        return "ActualizarCliente";
+        return "/templatesCliente/ActualizarCliente";
     }
 
     @PostMapping("/realizarVerificacion")
     public String realizarVerificacion(@RequestParam int id, Model model) {
         if (clienteDao.encontrarCliente(id)) {
             model.addAttribute("Cliente", clienteDao.obtenerCliente(id));
-            return "ActualizarClienteDatos";
+            return "/templatesCliente/ActualizarClienteDatos";
         } else {
             return "redirect:/cliente/mensaje?mensaje=" + "EL CLIENTE NO SE ENCUENTRA REGISTRADO";
         }
