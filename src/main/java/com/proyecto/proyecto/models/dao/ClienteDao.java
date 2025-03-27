@@ -11,7 +11,7 @@ import com.proyecto.proyecto.models.entities.Cliente;
 public class ClienteDao  {
 
     @Autowired
-    private IDaoCliente daoCliente;
+    private RepositorioCliente daoCliente;
 
     public List<Cliente> listarClientes (){
         return daoCliente.findAll();

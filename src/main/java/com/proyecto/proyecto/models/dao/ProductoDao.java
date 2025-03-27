@@ -13,7 +13,7 @@ import com.proyecto.proyecto.models.entities.Producto;
 public class ProductoDao  {
 
     @Autowired
-    private IDaoProducto daoProducto;
+    private RepositorioProducto daoProducto;
 
     public List<Producto> listar (){
         return daoProducto.findAll();

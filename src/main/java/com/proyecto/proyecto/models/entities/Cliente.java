@@ -7,13 +7,13 @@ import java.time.LocalDate;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 @Entity
 
 public class Cliente implements Serializable {
+
     @Id
     @Column(unique = true )
     private int id;
