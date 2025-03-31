@@ -3,18 +3,20 @@ package com.proyecto.proyecto.models.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+
 @Entity
 @Table(name = "producto")
-
+@EntityListeners(AuditingEntityListener.class)
 public class Producto implements Serializable {
     @Id
     @Column(unique = true)
@@ -23,27 +25,27 @@ public class Producto implements Serializable {
     private String nombre;
     private int stock;
     private int precio;
-    
-    @Temporal(TemporalType.DATE)
+
+    @LastModifiedDate
     private LocalDate fecha;
 
     
     public Producto() {
     }
-    public Producto(int id, String nombre, int stock, int precio, LocalDate fecha) {
+     
+    public Producto(int id, String nombre, int stock, int precio) {
         this.id = id;
         this.nombre = nombre;
         this.stock = stock;
         this.precio = precio;
-        this.fecha = fecha;
+
     }
-    
-    public Producto(String nombre, int stock, int precio, LocalDate fecha) {
+    public Producto(String nombre, int stock, int precio) {
        
         this.nombre = nombre;
         this.stock = stock;
         this.precio = precio;
-        this.fecha = fecha;
+      
     }
     public int getId() {
         return id;

@@ -37,6 +37,19 @@ public class ControllerProducto {
         }
     }
     
+    @GetMapping("/listarComprar")
+    public String listarComprar(Model model) {
+
+        if (productoDao.listar().isEmpty()) {
+            return "redirect:/cliente/mensaje?mensaje=" + "NO SE ENCUENTRAN PRODUCTOS REGISTRADOS";
+        } else {
+            model.addAttribute("Titulo", "Lista de Productos");
+            model.addAttribute("producto", productoDao.listar());
+
+            return "/templatesProducto/ListarProductoComprar";
+        }
+    }
+    
 
        @GetMapping("/eliminar")
     public String eliminar() {
@@ -48,7 +61,7 @@ public class ControllerProducto {
 
         if (productoDao.encontrarProducto(id)) {
             productoDao.eliminarProducto(id);
-            return "redirect:/cliente/mensaje?mensaje=" + "EL PRODUCTO FUE ELIMINADO CON EXITO";
+            return "redirect:/producto/listar";
         } else {
             return "redirect:/cliente/mensaje?mensaje=" + "EL PRODUCTO NO SE ENCUENTRA REGISTRADO";
         }
@@ -66,11 +79,12 @@ public class ControllerProducto {
     public String guardar(
             @RequestParam("nombre") String nombre,
             @RequestParam("stock") int stock,
-            @RequestParam("precio") int precio,
-            @RequestParam("fecha") String fecha) {
-        LocalDate fechaP = LocalDate.parse(fecha);
+            @RequestParam("precio") int precio
+    )
+            {
+       
         
-            Producto producto = new Producto(nombre,stock,precio, fechaP);
+            Producto producto = new Producto(nombre,stock,precio);
             productoDao.crear(producto);
             return "redirect:/producto/listar";
         
@@ -126,11 +140,11 @@ public class ControllerProducto {
             @RequestParam("id")  int id,
             @RequestParam("nombre") String nombre,
             @RequestParam("stock") int stock,
-            @RequestParam("precio") int precio,
-            @RequestParam("fecha") String fecha) {
-        LocalDate fechaP = LocalDate.parse(fecha);
+            @RequestParam("precio") int precio)
+             {
+     
       
-            Producto producto = new Producto(id,nombre,stock,precio, fechaP);
+            Producto producto = new Producto(id,nombre,stock,precio);
             productoDao.crear(producto);
             return "redirect:/producto/listarBusqueda?id=" + id;
         

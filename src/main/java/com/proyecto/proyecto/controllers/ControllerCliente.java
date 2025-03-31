@@ -1,6 +1,5 @@
 package com.proyecto.proyecto.controllers;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -50,15 +49,15 @@ public class ControllerCliente {
     public String guardar(@RequestParam("id") int id,
             @RequestParam("nombre") String nombre,
             @RequestParam("primerapellido") String primerApellido,
-            @RequestParam("segundoapellido") String segundoApellido, @RequestParam("email") String email,
-            @RequestParam("fecha") String fecha) {
-        LocalDate fechaP = LocalDate.parse(fecha);
+            @RequestParam("segundoapellido") String segundoApellido, @RequestParam("email") String email
+           ) {
+    
         if (clienteDao.encontrarCliente(id)) {
             return "redirect:/cliente/listarBusqueda?id=" + id;
 
         
         } else {
-            Cliente cliente = new Cliente(id, nombre, email, primerApellido, segundoApellido, fechaP);
+            Cliente cliente = new Cliente(id, nombre, email, primerApellido, segundoApellido);
             clienteDao.crear(cliente);
             return "redirect:/cliente/listarBusqueda?id=" + id;
         }
@@ -102,6 +101,12 @@ public class ControllerCliente {
     public String menuProducto() {
 
         return "MenuProducto";
+    }
+    
+    @GetMapping("/menuEmpresa")
+    public String menuEmpresa() {
+
+        return "MenuEmpresa";
     }
 
     @GetMapping("/")
@@ -152,11 +157,9 @@ public class ControllerCliente {
     public String realizarctualizacion(@RequestParam("id") int id,
             @RequestParam("nombre") String nombre,
             @RequestParam("primerapellido") String primerApellido,
-            @RequestParam("segundoapellido") String segundoApellido, @RequestParam("email") String email,
-            @RequestParam("fecha") String fecha) {
-        LocalDate fechaP = LocalDate.parse(fecha);
-      
-            Cliente cliente = new Cliente(id, nombre, email, primerApellido, segundoApellido, fechaP);
+            @RequestParam("segundoapellido") String segundoApellido, @RequestParam("email") String email
+           ) {
+            Cliente cliente = new Cliente(id, nombre, email, primerApellido, segundoApellido);
             clienteDao.crear(cliente);
             return "redirect:/cliente/listarBusqueda?id=" + id;
         

@@ -14,28 +14,21 @@
     <table class ="table table-sm" style="margin: 100px; max-width: 80%;">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>NIT</th>
                 <th>Nombre</th>
-                <th>Primer Apellido</th>
-                <th>Segundo Apellido</th>
-          
-                <th>Email</th>
-                <th>Fecha</th>
+                <th>Descripción</th>
             </tr>
         </thead>
         <tbody>
-            <tr th:each="cliente:${cliente}">
-                <td th:text="${cliente.id}"></td>
-                <td th:text="${cliente.nombre}"></td>
-                <td th:text="${cliente.primerapellido}"></td>
-                <td th:text="${cliente.segundoapellido}"></td>
-                <td th:text="${cliente.email}"></td>
-                <td th:text="${cliente.fecha}"></td>
+            <tr th:each="empresa:${empresa}">
+                <td th:text="${empresa.nit}"></td>
+                <td th:text="${empresa.nombre}"></td>
+                <td th:text="${empresa.descripcion}"></td>
             </tr>
         </tbody>
     </table>
     <div style=" display: flex; justify-content: center ;"> <button type="submit"
-                class="btn btn-success"><a th:href="@{/cliente/menuCliente}" style="text-decoration: none; color:black;">Volver</a></button></div>
+                class="btn btn-success"><a th:href="@{/cliente/menuEmpresa}" style="text-decoration: none; color:black;">Volver</a></button></div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

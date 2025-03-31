@@ -3,15 +3,17 @@ package com.proyecto.proyecto.models.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import org.springframework.data.annotation.CreatedDate;
+
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Id;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 
 @Entity
-
+@EntityListeners(AuditingEntityListener.class)
 public class Cliente implements Serializable {
 
     @Id
@@ -19,7 +21,7 @@ public class Cliente implements Serializable {
     private int id;
     private String nombre,  email, primerapellido, segundoapellido;
 
-    @Temporal(TemporalType.DATE)
+   @CreatedDate
     private LocalDate fecha;
 
 
@@ -40,13 +42,13 @@ public class Cliente implements Serializable {
         this.segundoapellido = segundoapellido;
     }
 
-    public Cliente(int id, String nombre, String email, String primerapellido, String segundoapellido, LocalDate fecha) {
+    public Cliente(int id, String nombre, String email, String primerapellido, String segundoapellido) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
         this.primerapellido = primerapellido;
         this.segundoapellido = segundoapellido;
-        this.fecha = fecha;
+
     }
 
     public Cliente() {

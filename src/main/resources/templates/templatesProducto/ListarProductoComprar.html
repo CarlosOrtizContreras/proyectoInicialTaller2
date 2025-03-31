@@ -19,6 +19,8 @@
                 <th>Stock</th>
                 <th>Precio</th>
                 <th>Fecha Modificación</th>
+                <th>Cantidad a Comprar</th>
+                <th>Añadir al Carrito</th>
             </tr>
         </thead>
         <tbody>
@@ -28,7 +30,9 @@
                 <td th:text="${producto.stock}"></td>
                 <td th:text="${producto.precio}"></td>
                 <td th:text="${producto.fecha}"></td>
-                            
+                <form name="formulario" action="" method="post" ><td ><input type="number" name="cantidad" aria-label="cantidad" class="form-control" required value ="0"></td><td ><button  form="formulario" type="submit" class="btn btn-success">Añadir Carrito</button></td></form>
+   
+              
             </tr>
         </tbody>
            </table>
