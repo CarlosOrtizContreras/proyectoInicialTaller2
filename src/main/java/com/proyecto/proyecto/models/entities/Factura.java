@@ -27,7 +27,7 @@ public class Factura implements Serializable {
     @Id
     @Column(unique = true)
     private int id;
-    private Double total;
+    private Long total;
     @CreatedDate
     private LocalDateTime fechaCompra;
     @ManyToOne
@@ -39,7 +39,7 @@ public class Factura implements Serializable {
 
     
 
-    public Factura(int id, Double total, Cliente cliente, Empresa empresa) {
+    public Factura(int id, Long total, Cliente cliente, Empresa empresa) {
         this.id = id;
         this.total = total;
         this.cliente = cliente;

@@ -1,6 +1,6 @@
 package com.proyecto.proyecto.controllers;
 
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -38,13 +38,14 @@ public class ControllerProducto {
     }
     
     @GetMapping("/listarComprar")
-    public String listarComprar(Model model) {
+    public String listarComprar(@RequestParam int idFactura ,Model model) {
 
         if (productoDao.listar().isEmpty()) {
             return "redirect:/cliente/mensaje?mensaje=" + "NO SE ENCUENTRAN PRODUCTOS REGISTRADOS";
         } else {
             model.addAttribute("Titulo", "Lista de Productos");
             model.addAttribute("producto", productoDao.listar());
+            model.addAttribute("idFactura", idFactura);
 
             return "/templatesProducto/ListarProductoComprar";
         }

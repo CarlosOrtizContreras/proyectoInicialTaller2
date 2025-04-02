@@ -24,7 +24,7 @@ public class ListaProducto implements Serializable {
     @Column(unique = true)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private Double totalPrdoducto;
+    private Long totalPrdoducto;
     private int cantidad;
     @ManyToOne
     @JoinColumn(name = "idFactura", nullable = false)
@@ -32,6 +32,14 @@ public class ListaProducto implements Serializable {
     @ManyToOne
     @JoinColumn(name = "idProducto", nullable = false)
     private Producto producto;
+
+    
+    public ListaProducto(Long totalPrdoducto, int cantidad, Factura factura, Producto producto) {
+        this.totalPrdoducto = totalPrdoducto;
+        this.cantidad = cantidad;
+        this.factura = factura;
+        this.producto = producto;
+    }
 
     // serializacion
     public static long getSerialversionuid() {

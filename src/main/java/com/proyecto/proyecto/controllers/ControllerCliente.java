@@ -108,6 +108,11 @@ public class ControllerCliente {
 
         return "MenuEmpresa";
     }
+    @GetMapping("/menuFactura")
+    public String menuFactura() {
+
+        return "MenuFactura";
+    }
 
     @GetMapping("/")
     public String inicio() {
