@@ -93,6 +93,8 @@
                     <th>Stock</th>
                     <th>Precio</th>
                     <th>Fecha Modificación</th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -102,6 +104,16 @@
                     <td th:text="${producto.stock}"></td>
                     <td th:text="${producto.precio}"></td>
                     <td th:text="${producto.fecha}"></td>
+                     <form action="/producto/realizarVerificacion" method="post">
+                        <td><input type="number" name="id" hidden aria-label="id"
+                                   class="form-control" required th:value="${producto.id}">
+                        <button type="submit" class="btn btn-success">Editar</button></td>
+                    </form>
+                    <form action="/producto/realizarEliminacion" method="post">
+                        <td><input type="number" name="id" hidden aria-label="id"
+                                   class="form-control" required th:value="${producto.id}">
+                        <button type="submit" class="btn btn-success">Eliminar</button></td>
+                    </form>
                 </tr>
             </tbody>
         </table>

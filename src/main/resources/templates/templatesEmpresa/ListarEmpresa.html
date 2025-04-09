@@ -17,6 +17,8 @@
                 <th>NIT</th>
                 <th>Nombre</th>
                 <th>Descripción</th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -24,6 +26,16 @@
                 <td th:text="${empresa.nit}"></td>
                 <td th:text="${empresa.nombre}"></td>
                 <td th:text="${empresa.descripcion}"></td>
+                 <form action="/empresa/realizarVerificacion" method="post">
+                        <td><input type="number" name="nit" hidden aria-label="id"
+                                   class="form-control" required th:value="${empresa.nit}">
+                        <button type="submit" class="btn btn-success">Editar</button></td>
+                    </form>
+                   <!-- <form action="/empresa/realizarEliminacion" method="post">
+                        <td><input type="number" name="nit" hidden aria-label="id"
+                                   class="form-control" required th:value="${empresa.nit}">
+                        <button type="submit" class="btn btn-success">Eliminar</button></td>
+                    </form>-->
             </tr>
         </tbody>
     </table>

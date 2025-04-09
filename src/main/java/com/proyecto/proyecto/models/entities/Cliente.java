@@ -50,7 +50,18 @@ public class Cliente implements Serializable {
         this.segundoapellido = segundoapellido;
         this.contraseña = contraseña;
         this.rol = "0";
-
+    }
+    
+    public Cliente(int id, String nombre, String email, String primerapellido, String segundoapellido,
+            String contraseña, LocalDate fecha) {
+        this.id = id;
+        this.nombre = nombre;
+        this.email = email;
+        this.primerapellido = primerapellido;
+        this.segundoapellido = segundoapellido;
+        this.contraseña = contraseña;
+        this.fecha = fecha;
+        this.rol = "0";
     }
 
     public Cliente() {

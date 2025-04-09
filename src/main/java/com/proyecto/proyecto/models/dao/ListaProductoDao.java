@@ -33,5 +33,8 @@ public class ListaProductoDao {
     public ArrayList<ListaProducto> obtenerTodoListaPorFactura(int idFactura) {
         return repositorioListaProducto.findAllByFacturaId(idFactura);
     }
+    public boolean encontrarProductoComprado(int id){
+        return repositorioListaProducto.existsByProductoId(id);
+    }
 
 }

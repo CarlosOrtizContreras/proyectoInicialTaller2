@@ -67,7 +67,7 @@ public class ControllerFactura {
             model.addAttribute("Titulo", "Lista de Facturas");
             model.addAttribute("factura", facturaDao.listarFacturas());
 
-            return "/templatesFactura/ListarFactura";
+            return "/templatesFactura/ListarFacturaAdmin";
         }
 
     }
@@ -114,19 +114,14 @@ public class ControllerFactura {
 
     @PostMapping("/verificarUsuario")
     public String verificarUsuario(@RequestParam("id") int id) {
-        if (clienteDao.encontrarCliente(id)) {
+        
             int idFactura = generarIdFactura(clienteDao.obtenerCliente(id));
             return "redirect:/producto/listarComprar?idFactura=" + idFactura;
-        } else {
-            return "/templatesCliente/IngresarCliente";
-        }
+    
 
     }
 
-    @GetMapping("/buscarClienteFactura")
-    public String buscarUsuarioFactura() {
-        return "templatesFactura/BuscarClienteFactura";
-    }
+  
 
     private int generarIdFactura(Cliente cliente) {
         Random random = new Random();
@@ -169,6 +164,35 @@ public class ControllerFactura {
             model.addAttribute("idFactura", factura.getId());
 
             return "templatesFactura/Factura";
+        }
+
+    }
+
+    @PostMapping("/listarFacturaAdmin")
+    public String listarFacturaAdmin(@RequestParam("idFactura") int idFactura, Model model) {
+        Factura factura = facturaDao.obtenerFactura(idFactura);
+        ArrayList<ListaProducto> lista = listaProductoDao.obtenerTodoListaPorFactura(idFactura);
+        Long totalCompra = 0L;
+        for (ListaProducto e : lista) {
+            totalCompra = totalCompra + e.getTotalPrdoducto();
+        }
+        factura.setTotal(totalCompra);
+        if (totalCompra <= 0) {
+            facturaDao.eliminarFactura(idFactura);
+            return "redirect:/cliente/mensaje?mensaje=" + "NO SE REALIZO NINGUNA COMPRA";
+
+        } else {
+            facturaDao.guardarFactura(factura);
+
+            model.addAttribute("empresa", factura.getEmpresa());
+            model.addAttribute("cliente", factura.getCliente());
+            model.addAttribute("lista", lista);
+            String totalString = String.format("%,d", totalCompra);
+            model.addAttribute("totalCompra", totalString);
+            model.addAttribute("fechaCompra", factura.getFechaCompra());
+            model.addAttribute("idFactura", factura.getId());
+
+            return "templatesFactura/FacturaAdmin";
         }
 
     }

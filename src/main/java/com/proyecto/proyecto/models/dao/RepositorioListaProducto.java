@@ -17,4 +17,6 @@ public interface RepositorioListaProducto extends JpaRepository<ListaProducto, I
     public ListaProducto findByProductoIdAndFacturaId(int Producto, int Factura);
 
     public ArrayList<ListaProducto> findAllByFacturaId(int Factura);
+
+    public boolean existsByProductoId(int producto);
 }

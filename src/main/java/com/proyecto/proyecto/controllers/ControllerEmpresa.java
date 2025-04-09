@@ -91,21 +91,15 @@ public class ControllerEmpresa {
     }
 
    
-    @GetMapping("/eliminar")
-    public String eliminar() {
-        return "/templatesEmpresa/EliminarEmpresa";
-    }
+   
 
     @PostMapping("/realizarEliminacion")
     public String realizarEliminacion(@RequestParam("nit") int nit) {
 
-        if (empresaDao.encontrarEmpresa(nit)) {
+      
             empresaDao.eliminarEmpresa(nit);
             return "redirect:/cliente/mensaje?mensaje=" + "LA EMPRESA FUE ELIMINADO CON EXITO";
-        } else {
-            return "redirect:/cliente/mensaje?mensaje=" + " LA EMPRESA NO SE ENCUENTRA REGISTRADO";
-        }
-
+  
     }
 
 
@@ -117,12 +111,10 @@ public class ControllerEmpresa {
 
     @PostMapping("/realizarVerificacion")
     public String realizarVerificacion(@RequestParam("nit") int nit, Model model) {
-        if (empresaDao.encontrarEmpresa(nit)) {
+     
             model.addAttribute("empresa", empresaDao.obtenerEmpresa(nit));
             return "/templatesEmpresa/ActualizarEmpresaDatos";
-        } else {
-            return "redirect:/cliente/mensaje?mensaje=" + "LA EMPRESA NO SE ENCUENTRA REGISTRADO";
-        }
+    
 
     }
     @PostMapping ("/realizarActualizacion")
@@ -133,7 +125,7 @@ public class ControllerEmpresa {
            ) {
             Empresa empresa = new Empresa(nit, nombre, descripcion);
             empresaDao.crearEmpresa(empresa);
-            return "redirect:/empresa/listarBusqueda?nit=" + nit;
+            return "redirect:/empresa/listar";
         
 
     }

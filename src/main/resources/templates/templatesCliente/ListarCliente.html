@@ -27,6 +27,9 @@
                     <th>Segundo Apellido</th>
                     <th>Email</th>
                     <th>Fecha Inscripción</th>
+                    <th></th>
+                    <th></th>
+
                 </tr>
             </thead>
             <tbody>
@@ -37,6 +40,16 @@
                     <td th:text="${cliente.segundoapellido}"></td>
                     <td th:text="${cliente.email}"></td>
                     <td th:text="${cliente.fecha}"></td>
+                    <form action="/cliente/realizarVerificacion" method="post">
+                        <td><input type="number" name="id" hidden aria-label="id"
+                                   class="form-control" required th:value="${cliente.id}">
+                        <button type="submit" class="btn btn-success">Editar</button></td>
+                    </form>
+                    <form action="/cliente/realizarEliminacion" method="post">
+                        <td><input type="number" name="id" hidden aria-label="id"
+                                   class="form-control" required th:value="${cliente.id}">
+                        <button type="submit" class="btn btn-success">Eliminar</button></td>
+                    </form>
                 </tr>
             </tbody>
         </table>

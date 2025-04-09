@@ -83,25 +83,29 @@
 
       <form action="/cliente/validarLogIn" method="post">
         <div class="form-floating mb-3">
-          <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="id">
+          <input type="number" class="form-control" id="floatingInput" placeholder="name@example.com" name="id">
           <label for="floatingInput">Identificacion del Usuario</label>
         </div>
         <div class="form-floating">
-          <input type="password" class="form-control" id="floatingPassword" placeholder="Password" nname="contraseña">
+          <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="contraseña">
           <label for="floatingPassword">Contraseña</label>
           <br>
           <div><a th:href="@{/cliente/ingresar}">Registrarse</a></div>
           <br>
-          <div><a th:href="@{/cliente/cambiarContraseña}">¿Haz Olvidado Tu Contraseña? Recuperar</a></div>
+          <div><a th:href="@{/cliente/actualizacionContrasena}">¿Haz Olvidado Tu Contraseña? Recuperar</a></div>
         </div>
-
-
 
         <button type="submit" class="btn btn-primary">Entrar</button>
       </form>
-        <div class="alert alert-danger" th:style="${mensaje != null} ? 'display: flex;' : 'display: none;'" role="alert">
-            <span th:text="${error}"></span>
-        </div>
+      <div class="alert alert-danger" th:style="${error != null} ? 'display: flex;' : 'display: none;'" role="error">
+        <span th:text="${error}"></span>
+      </div>
+      <div class="alert alert-success" th:style="${estadoProceso != null} ? 'display: flex;' : 'display: none;'" role="estadoProceso">
+        <span th:text="${estadoProceso}"></span>
+      </div>
+      <div class="alert alert-secondary" th:style="${estadoActualizacion != null} ? 'display: flex;' : 'display: none;'" role="estadoActualizacion">
+        <span th:text="${estadoActualizacion}"></span>
+      </div>
     </div>
   </div>
 
