@@ -12,21 +12,26 @@ public class ListaProductoDao {
     @Autowired
     private RepositorioListaProducto repositorioListaProducto;
 
-    public void guardar (ListaProducto listaProducto){
+    public void guardar(ListaProducto listaProducto) {
         repositorioListaProducto.save(listaProducto);
     }
 
-    public boolean buscarListaPorProductoyFactura (int idProducto, int idFactura){
-       return repositorioListaProducto.existsByFacturaIdAndProductoId(idProducto, idFactura);
-    }
-    public void eliminarListaPorProductoyFactura(int idProducto, int idFactura){
-        repositorioListaProducto.deleteByFacturaIdAndProductoId(idProducto, idFactura);
-    }
-    public ListaProducto obtenerListaPorProdcutoyFactura(int idProducto, int idFactura){
-        return  repositorioListaProducto.findByFacturaIdAndProductoId(idProducto, idFactura);
-    }public ArrayList<ListaProducto> obtenerTodoListaPorFactura(int idFactura){
-        return repositorioListaProducto.findAllByFacturaId(idFactura);
+    public boolean buscarListaPorProductoyFactura(int idProducto, int idFactura) {
+        return repositorioListaProducto.existsByProductoIdAndFacturaId(idProducto, idFactura);
     }
 
+    public void eliminarListaPorProductoyFactura(int idProducto, int idFactura) {
+        
+        repositorioListaProducto.deleteById(repositorioListaProducto.findByProductoIdAndFacturaId(idProducto, idFactura).getId());
+    }
+    
+
+    public ListaProducto obtenerListaPorProdcutoyFactura(int idProducto, int idFactura) {
+        return repositorioListaProducto.findByProductoIdAndFacturaId(idProducto, idFactura);
+    }
+
+    public ArrayList<ListaProducto> obtenerTodoListaPorFactura(int idFactura) {
+        return repositorioListaProducto.findAllByFacturaId(idFactura);
+    }
 
 }

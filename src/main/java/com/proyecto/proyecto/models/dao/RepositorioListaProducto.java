@@ -9,12 +9,12 @@ import com.proyecto.proyecto.models.entities.ListaProducto;
 
 @Repository
 public interface RepositorioListaProducto extends JpaRepository<ListaProducto, Integer> {
-    
-    public boolean existsByFacturaIdAndProductoId(int Producto, int Factura);
 
-    public boolean deleteByFacturaIdAndProductoId(int Producto, int Factura);
-    
-    public ListaProducto findByFacturaIdAndProductoId(int Producto, int Factura);
+    public boolean existsByProductoIdAndFacturaId(int Producto, int Factura);
+
+    public void deleteByProductoIdAndFacturaId(int Producto, int Factura);
+
+    public ListaProducto findByProductoIdAndFacturaId(int Producto, int Factura);
 
     public ArrayList<ListaProducto> findAllByFacturaId(int Factura);
 }

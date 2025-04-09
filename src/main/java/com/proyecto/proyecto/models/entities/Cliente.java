@@ -19,7 +19,7 @@ public class Cliente implements Serializable {
     @Id
     @Column(unique = true )
     private int id;
-    private String nombre,  email, primerapellido, segundoapellido;
+    private String nombre,  email, primerapellido, segundoapellido,contraseña,rol;
 
    @CreatedDate
     private LocalDate fecha;
@@ -42,12 +42,14 @@ public class Cliente implements Serializable {
         this.segundoapellido = segundoapellido;
     }
 
-    public Cliente(int id, String nombre, String email, String primerapellido, String segundoapellido) {
+    public Cliente(int id, String nombre, String email, String primerapellido, String segundoapellido, String contraseña) {
         this.id = id;
         this.nombre = nombre;
         this.email = email;
         this.primerapellido = primerapellido;
         this.segundoapellido = segundoapellido;
+        this.contraseña = contraseña;
+        this.rol = "0";
 
     }
 
@@ -69,6 +71,22 @@ public class Cliente implements Serializable {
 
 
     
+    public String getContraseña() {
+        return contraseña;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
     public String getEmail() {
         return email;
     }

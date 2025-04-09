@@ -25,6 +25,23 @@ public class ControllerCliente {
     @Autowired
     private ClienteDao clienteDao;
 
+    @PostMapping("/validarLogIn")
+    public String realizarBusqueda(@RequestParam("id") int id, @RequestParam("contraseña") int contraseña, Model model) {
+        if(clienteDao.encontrarCliente(id)){
+            Optional<Cliente> clienteSesion = clienteDao.buscarCliente(id);
+            if(clienteSesion.get().getContraseña().equals(contraseña)){
+                return "redirect:/cliente/inicioCliente?id=" + id;
+            }
+            model.addAttribute("error", "Usuario o Contraseña Incorrectas");
+            return "InicioSesion";
+        }else{
+            model.addAttribute("error", "Usuario o Contraseña Incorrectas");
+            return "InicioSesion";
+        }
+       
+        
+    }
+
     @GetMapping("/listar")
     public String listar(Model model) {
         if (clienteDao.listarClientes().isEmpty()) {
@@ -49,7 +66,8 @@ public class ControllerCliente {
     public String guardar(@RequestParam("id") int id,
             @RequestParam("nombre") String nombre,
             @RequestParam("primerapellido") String primerApellido,
-            @RequestParam("segundoapellido") String segundoApellido, @RequestParam("email") String email
+            @RequestParam("segundoapellido") String segundoApellido,
+            @RequestParam("contraseña") String contraseña, @RequestParam("email") String email
            ) {
     
         if (clienteDao.encontrarCliente(id)) {
@@ -57,7 +75,7 @@ public class ControllerCliente {
 
         
         } else {
-            Cliente cliente = new Cliente(id, nombre, email, primerApellido, segundoApellido);
+            Cliente cliente = new Cliente(id, nombre, email, primerApellido, segundoApellido,contraseña);
             clienteDao.crear(cliente);
             return "redirect:/cliente/listarBusqueda?id=" + id;
         }
@@ -115,6 +133,11 @@ public class ControllerCliente {
     }
 
     @GetMapping("/")
+    public String inicioSesion(){
+        return "InicioSesion";
+    }
+
+    @GetMapping("/inicio")
     public String inicio() {
         return "Inicio";
     }
@@ -162,9 +185,11 @@ public class ControllerCliente {
     public String realizarctualizacion(@RequestParam("id") int id,
             @RequestParam("nombre") String nombre,
             @RequestParam("primerapellido") String primerApellido,
-            @RequestParam("segundoapellido") String segundoApellido, @RequestParam("email") String email
+            @RequestParam("segundoapellido") String segundoApellido,
+           
+            @RequestParam("contraseña") String contraseña, @RequestParam("email") String email
            ) {
-            Cliente cliente = new Cliente(id, nombre, email, primerApellido, segundoApellido);
+            Cliente cliente = new Cliente(id, nombre, email, primerApellido, segundoApellido, contraseña );
             clienteDao.crear(cliente);
             return "redirect:/cliente/listarBusqueda?id=" + id;
         
