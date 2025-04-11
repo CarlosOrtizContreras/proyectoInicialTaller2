@@ -73,6 +73,10 @@
     <button class="custom-btn back-btn" th:onclick="'location.href=\'' + @{/cliente/inicioAdmin} + '\''">Volver</button>
 </div>
 
+<div class="alert alert-danger" th:style="${productosNoRegistrados != null} ? 'display: flex;' : 'display: none;'" role="productosNoRegistrados">
+        <span th:text="${productosNoRegistrados}"></span>
+      </div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>

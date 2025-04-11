@@ -60,7 +60,15 @@
         <button class="custom-btn" th:onclick="'location.href=\'' + @{/factura/buscar} + '\''">Buscar Facturas</button>
         <button class="custom-btn" style="background-color: rgb(100, 100, 100);" th:onclick="'location.href=\'' + @{/cliente/inicioAdmin} + '\''">Volver</button>
     </div>
-
+    <div class="alert alert-danger" th:style="${facturaVacia != null} ? 'display: flex;' : 'display: none;'" role="facturaVacia">
+        <span th:text="${facturaVacia}"></span>
+      </div>
+<div class="alert alert-danger" th:style="${facturaNoRegistrada != null} ? 'display: flex;' : 'display: none;'" role="facturaNoRegistrada">
+        <span th:text="${facturaNoRegistrada}"></span>
+      </div>
+      <div class="alert alert-danger" th:style="${compraNoRealizada != null} ? 'display: flex;' : 'display: none;'" role="compraNoRealizada">
+        <span th:text="${compraNoRealizada}"></span>
+      </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>

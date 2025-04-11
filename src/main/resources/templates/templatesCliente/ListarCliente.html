@@ -54,7 +54,12 @@
             </tbody>
         </table>
     </div>
-
+    <div class="alert alert-danger" th:style="${avisoNoEliminacion != null} ? 'display: flex;' : 'display: none;'" role="avisoNoEliminacion">
+        <span th:text="${avisoNoEliminacion}"></span>
+      </div>
+   <div class="alert alert-success" th:style="${avisoEliminacion != null} ? 'display: flex;' : 'display: none;'" role="avisoEliminacion">
+        <span th:text="${avisoEliminacion}"></span>
+      </div>
     <!-- Botón Volver estilizado como un enlace -->
     <div style="display: flex; justify-content: center; margin-top: 30px;" >
         <a th:href="@{/cliente/menuCliente}" class="btn btn-secondary" 

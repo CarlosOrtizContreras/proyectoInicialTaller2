@@ -61,6 +61,12 @@
         <button class="custom-btn" style="background-color: rgb(100, 100, 100);" th:onclick="'location.href=\'' + @{/cliente/inicioAdmin} + '\''">Volver</button>
 
     </div>
+    <div class="alert alert-danger" th:style="${avisoClientes != null} ? 'display: flex;' : 'display: none;'" role="avisoClientes">
+        <span th:text="${avisoClientes}"></span>
+      </div>
+      <div class="alert alert-danger" th:style="${avisoClienteNoEncontrado != null} ? 'display: flex;' : 'display: none;'" role="avisoClienteNoEncontrado">
+        <span th:text="${avisoClienteNoEncontrado}"></span>
+      </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

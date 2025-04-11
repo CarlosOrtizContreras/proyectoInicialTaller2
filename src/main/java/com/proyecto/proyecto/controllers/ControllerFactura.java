@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -60,9 +61,10 @@ public class ControllerFactura {
     private EmpresaDao empresaDao;
 
     @GetMapping("/listar")
-    public String listar(Model model) {
+    public String listar(Model model, RedirectAttributes redirectAttributes) {
         if (facturaDao.listarFacturas().isEmpty()) {
-            return "redirect:/cliente/mensaje?mensaje=" + "NO SE ENCUENTRAN FACTURAS REGISTRADAS";
+            redirectAttributes.addFlashAttribute("facturaVacia", "NO SE ENCUENTRAN FACTURAS REGISTRADAS");
+            return "redirect:/cliente/menuFactura";
         } else {
             model.addAttribute("Titulo", "Lista de Facturas");
             model.addAttribute("factura", facturaDao.listarFacturas());
@@ -72,10 +74,12 @@ public class ControllerFactura {
 
     }
     @PostMapping("/listarPorId")
-    public String listarPorId(@RequestParam("id") int id, Model model) {
+    public String listarPorId(@RequestParam("id") int id, Model model, RedirectAttributes redirectAttributes) {
          ArrayList<Factura> lista = facturaDao.listarFacturasPorId(id);
         if (lista.isEmpty()) {
-            return "redirect:/cliente/mensaje?mensaje=" + "NO SE ENCUENTRAN FACTURAS REGISTRADAS";
+            redirectAttributes.addFlashAttribute("facturaVacia", "NO SE ENCUENTRAN FACTURAS REGISTRADAS");
+            return "redirect:/cliente/inicioCliente?id="+id;
+            
         } else {
             model.addAttribute("Titulo", "Lista de Facturas");
             model.addAttribute("factura", lista);
@@ -97,7 +101,7 @@ public class ControllerFactura {
     }
 
     @GetMapping("/listarBusqueda")
-    public String listarBusqueda(@RequestParam int id, Model model) {
+    public String listarBusqueda(@RequestParam int id, Model model, RedirectAttributes redirectAttributes) {
         List<Factura> factura = new ArrayList<>();
         Optional<Factura> resultado = facturaDao.buscarFactura(id);
         if (resultado.isPresent()) {
@@ -107,7 +111,8 @@ public class ControllerFactura {
 
             return "/templatesFactura/ListarFactura";
         } else {
-            return "redirect:/cliente/mensaje?mensaje=" + "LA FACTURA NO SE ENCUENTRA REGISTRADA";
+            redirectAttributes.addFlashAttribute("facturaNoRegistrada","LA FACTURA NO SE ENCUENTRA REGISTADA");
+            return "redirect:/cliente/menuFactura" ;
         }
 
     }
@@ -140,7 +145,7 @@ public class ControllerFactura {
     }
 
     @PostMapping("/listarFactura")
-    public String listarFactura(@RequestParam("idFactura") int idFactura, Model model) {
+    public String listarFactura(@RequestParam("idFactura") int idFactura, Model model, RedirectAttributes redirectAttributes) {
         Factura factura = facturaDao.obtenerFactura(idFactura);
         ArrayList<ListaProducto> lista = listaProductoDao.obtenerTodoListaPorFactura(idFactura);
         Long totalCompra = 0L;
@@ -150,7 +155,8 @@ public class ControllerFactura {
         factura.setTotal(totalCompra);
         if (totalCompra <= 0) {
             facturaDao.eliminarFactura(idFactura);
-            return "redirect:/cliente/mensaje?mensaje=" + "NO SE REALIZO NINGUNA COMPRA";
+            redirectAttributes.addFlashAttribute("compraNoRealizada","NO SE REALIZO NINGUNA COMPRA");
+            return "redirect:/cliente/inicioCliente?id="+ factura.getCliente().getId();
 
         } else {
             facturaDao.guardarFactura(factura);
@@ -169,7 +175,7 @@ public class ControllerFactura {
     }
 
     @PostMapping("/listarFacturaAdmin")
-    public String listarFacturaAdmin(@RequestParam("idFactura") int idFactura, Model model) {
+    public String listarFacturaAdmin(@RequestParam("idFactura") int idFactura, Model model, RedirectAttributes redirectAttributes) {
         Factura factura = facturaDao.obtenerFactura(idFactura);
         ArrayList<ListaProducto> lista = listaProductoDao.obtenerTodoListaPorFactura(idFactura);
         Long totalCompra = 0L;
@@ -179,7 +185,9 @@ public class ControllerFactura {
         factura.setTotal(totalCompra);
         if (totalCompra <= 0) {
             facturaDao.eliminarFactura(idFactura);
-            return "redirect:/cliente/mensaje?mensaje=" + "NO SE REALIZO NINGUNA COMPRA";
+            redirectAttributes.addFlashAttribute("compraNoRealizada", "NO SE REALIZO NINGUNA COMPRA");
+
+            return "redirect:/cliente/menuFactura";
 
         } else {
             facturaDao.guardarFactura(factura);

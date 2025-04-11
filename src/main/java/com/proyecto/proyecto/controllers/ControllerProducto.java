@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -29,10 +30,11 @@ public class ControllerProducto {
     private ListaProductoDao listaProductoDao;
     
     @GetMapping("/listar")
-    public String listar(Model model) {
+    public String listar(Model model, RedirectAttributes redirectAttributes) {
     
         if (productoDao.listar().isEmpty()) {
-            return "redirect:/cliente/mensaje?mensaje=" + "NO SE ENCUENTRAN PRODUCTOS REGISTRADOS";
+            redirectAttributes.addFlashAttribute("productosNoRegistrados","NO SE ENCUENTRAN PRODUCTOS REGISTRADOS");
+            return "redirect:/cliente/menuProducto" ;
         } else {
             model.addAttribute("Titulo", "Lista de Productos");
             model.addAttribute("producto", productoDao.listar());
@@ -42,10 +44,12 @@ public class ControllerProducto {
     }
     
     @GetMapping("/listarComprar")
-    public String listarComprar(@RequestParam int idFactura ,Model model) {
+    public String listarComprar(@RequestParam int idFactura ,Model model, RedirectAttributes redirectAttributes) {
 
         if (productoDao.listar().isEmpty()) {
-            return "redirect:/cliente/mensaje?mensaje=" + "NO SE ENCUENTRAN PRODUCTOS REGISTRADOS";
+            redirectAttributes.addFlashAttribute("productosNoRegistrados", "NO SE ENCUENTRAN PRODUCTOS REGISTRADOS");
+
+            return "redirect:/cliente/inicioCliente" ;
         } else {
             model.addAttribute("Titulo", "Lista de Productos");
             model.addAttribute("producto", productoDao.listar());
@@ -59,12 +63,13 @@ public class ControllerProducto {
 
 
     @PostMapping("/realizarEliminacion")
-    public String realizarEliminacion(@RequestParam("id") int id) {
+    public String realizarEliminacion(@RequestParam("id") int id, RedirectAttributes redirectAttributes) {
             if(!listaProductoDao.encontrarProductoComprado(id)){
                   productoDao.eliminarProducto(id);
             return "redirect:/producto/listar";
             }else{
-                return "redirect:/cliente/mensaje?mensaje=" + "EL PRODUCTO SE ENCUENTRA ACTIVO EN EL INVENTARIO";
+                redirectAttributes.addFlashAttribute("productoActivo","EL PRODUCTO SE ENCUENTRA ACTIVO EN EL INVENTARIO");
+                return "redirect:/producto/listar" ;
             }
           
     

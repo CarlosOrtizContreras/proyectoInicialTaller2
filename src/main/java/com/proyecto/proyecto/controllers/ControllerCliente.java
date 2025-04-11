@@ -54,9 +54,10 @@ public class ControllerCliente {
     }
 
     @GetMapping("/listar")
-    public String listar(Model model) {
+    public String listar(Model model, RedirectAttributes redirectAttributes) {
         if (clienteDao.listarClientes().isEmpty()) {
-            return "redirect:/cliente/mensaje?mensaje=" + "NO SE ENCUENTRAN CLIENTES REGISTRADOS";
+            redirectAttributes.addFlashAttribute("avisoClientes", "NO SE ENCUENTRAN CLIENTES REGISTRADOS");
+            return "redirect:/cliente/menuCliente" ;
         } else {
             ArrayList<Cliente> soloCliente = new ArrayList<>();
             for(Cliente e: clienteDao.listarClientes()){
@@ -115,7 +116,7 @@ public class ControllerCliente {
     }
 
     @GetMapping("/listarBusqueda")
-    public String listarBusqueda(@RequestParam int id, Model model) {
+    public String listarBusqueda(@RequestParam int id, Model model, RedirectAttributes redirectAttributes) {
         List<Cliente> cliente = new ArrayList<>();
         Optional<Cliente> resultado = clienteDao.buscarCliente(id);
         if (resultado.isPresent()) {
@@ -125,7 +126,8 @@ public class ControllerCliente {
 
             return "/templatesCliente/ListarCliente";
         } else {
-            return "redirect:/cliente/mensaje?mensaje=" + "EL CLIENTE NO SE ENCUENTRA REGISTRADO";
+            redirectAttributes.addFlashAttribute("avisoClienteNoEncontrado","EL CLIENTE NO SE ENCUENTRA REGISTRADO");
+            return "redirect:/cliente/menuCliente" ;
         }
 
     }
@@ -182,13 +184,15 @@ public class ControllerCliente {
     }
 
     @PostMapping("/realizarEliminacion")
-    public String realizarEliminacion(@RequestParam("id") int id) {
+    public String realizarEliminacion(@RequestParam("id") int id, RedirectAttributes redirectAttributes) {
              ArrayList<Factura> lista = facturaDao.listarFacturasPorId(id);
          if (!lista.isEmpty()) {
-            return "redirect:/cliente/mensaje?mensaje=" + " SE ENCUENTRAN FACTURAS REGISTRADAS POR EL USUARIO, NO SE PUEDE ELIMINAR";}
+            redirectAttributes.addFlashAttribute("avisoNoEliminacion"," SE ENCUENTRAN FACTURAS REGISTRADAS POR EL USUARIO, NO SE PUEDE ELIMINAR" );
+            return "redirect:/cliente/listar"; }
             else {
                 clienteDao.eliminarCliente(id);
-                return "redirect:/cliente/mensaje?mensaje=" + "EL CLIENTE FUE ELIMINADO CON EXITO";
+                 redirectAttributes.addFlashAttribute("avisoEliminacion","EL CLIENTE FUE ELIMINADO CON EXITO");
+                 return "redirect:/cliente/listar";
             }
        
 
